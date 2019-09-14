@@ -1,1 +1,3 @@
 WebServer/app/__pycache__/
+WebServer/app/user_endpoint/__pycache__/
+WebServer/quitIT-key.pem
