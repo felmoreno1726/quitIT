@@ -12,6 +12,15 @@ def register_blueprints(app):
 app = Flask(__name__)
 logger = app.logger
 socketio = SocketIO(app, logger=logger)
-#Session shows user logged into the system using the app
-session = {}
+#Session keeps users in the system
+sessions = {
+        #username (str): {
+            #location: (int, int),
+            #phone_number: (str)
+            #}
+        }
+#maps sids to a usernme
+sids = {
+        #sid (val) : 
+        }
 register_blueprints(app)

@@ -31,13 +31,21 @@ def handle_update_location(message):
     Checks if the location matches that of a red zone, if yes
     then sends an SMS alert to the user's phone.
     """
+
 socketio.on('join', namespace=user_namespace)
 def on_join(data):
     """
     """
     logger.info("Joining room. Data: " + str(data))
     username = data["username"]
-    phone_number = data["phone_number"]
+    phone_number = data.get("phone_number")
+    #update session with loggin parameters
+    if username in sessions:
+        #then update with phone number if present
+        if phone_number is not None:
+            sessions[username]["phone_number"] = phone_number
+    sessions[username]
+else
     join_room(username)
     sid = request.sid
     session[sid] = {"username": username, "phone_number" : phone_number}
