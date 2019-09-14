@@ -1,10 +1,13 @@
 import datetime
 import json
 from json import dumps
+
 from flask import render_template, request, jsonify, make_response, abort
 from flask_socketio import emit, send, join_room
-from app import socketio, logger, session, context
+from app import socketio, logger, sessions,context
 from app.devices import bp
+
+from app.models import Alert
 
 user_namespace = "/user_endpoint"
 
@@ -15,6 +18,8 @@ def handle_alert_message(message):
     Processes the alert, logs the location to t database
     and then forwards an SMS alert to the user's phone
     """
+    time = datetime.utcnow()
+    Alert(time=time)
     sid = request.sid
     user_context = session.get(sid)
     
