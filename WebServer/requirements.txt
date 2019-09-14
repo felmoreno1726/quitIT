@@ -1,0 +1,6 @@
+flask
+pymongo
+websocket-client
+eventlet
+flask-socketio
+python-socketio
