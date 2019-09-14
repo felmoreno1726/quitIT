@@ -10,7 +10,7 @@ def register_blueprints(app):
     """
     Calls the different modules of the server to initialize them
     """
-    from app.user_endpoit import bp as user_endpoint_bp
+    from app.user_endpoint import bp as user_endpoint_bp
     app.register_blueprint(user_endpoint_bp)
 
 app = Flask(__name__)
@@ -25,7 +25,7 @@ sessions = {
         }
 #maps sids to a usernme
 sids = {
-        #sid (val) : 
+        #sid (val) : username (str)
         }
 register_blueprints(app)
 app = Flask(__name__)
