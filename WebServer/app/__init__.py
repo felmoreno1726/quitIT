@@ -2,7 +2,6 @@ from flask import Flask
 #from app.database import DB
 from flask_socketio import SocketIO
 
-
 def register_blueprints(app):
     """
     Calls the different modules of the server to initialize them
