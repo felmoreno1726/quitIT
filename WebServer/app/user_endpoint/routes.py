@@ -3,8 +3,8 @@ import json
 from json import dumps
 from flask import render_template, request, jsonify, make_response, abort
 from flask_socketio import emit, send, join_room
-from app import socketio, logger, session, context
-from app.devices import bp
+from app import socketio, logger, sessions, sids
+from app.user_endpoint import bp
 
 user_namespace = "/user_endpoint"
 
@@ -44,9 +44,13 @@ def on_join(data):
         #then update with phone number if present
         if phone_number is not None:
             sessions[username]["phone_number"] = phone_number
-    sessions[username]
-else
+
+    else:
+        #create entry for user
+        session[username] = {"phone_number" : phone_number}
     join_room(username)
+    #update sids to point to the username
     sid = request.sid
-    session[sid] = {"username": username, "phone_number" : phone_number}
-    logger.info("Session updated\n Current session: " + str(session))
+    sids[sid] = username
+    logger.info("Device joined\n sids: " + str(sids))
+    logger.info("sessions: " + str(sessions))
