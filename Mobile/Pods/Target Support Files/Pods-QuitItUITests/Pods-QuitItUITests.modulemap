@@ -1,0 +1,6 @@
+framework module Pods_QuitItUITests {
+  umbrella header "Pods-QuitItUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
