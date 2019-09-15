@@ -9,7 +9,7 @@ from app.user_endpoint import bp
 
 from app.models import Alert, User
 
-user_namespace = "/user_endpoint"
+user_namespace = "/"
 
 
 @socketio.on('alert', namespace=user_namespace)
@@ -69,3 +69,4 @@ def on_join(data):
     sids[sid] = username
     logger.info("Device joined\n sids: " + str(sids))
     logger.info("sessions: " + str(sessions))
+    send("Some string message")

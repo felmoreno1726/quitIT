@@ -15,7 +15,6 @@ logger = app.logger
 #socketio = SocketIO(app, logger=logger)
 #Shows devices currently logged in to the system
 session = {}
-register_blueprints(app)
 
 app = Flask(__name__)
 
@@ -40,3 +39,5 @@ class User(db.Model):
     username = db.Column(db.String(20),nullable=False )
     coordinates = db.Column(db.String(20))
     phone_number = db.Column(db.String(20),nullable=False )
+
+register_blueprints(app)
