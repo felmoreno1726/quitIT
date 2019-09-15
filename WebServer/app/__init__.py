@@ -18,8 +18,6 @@ def register_blueprints(app):
 
 app = Flask(__name__)
 logger = app.logger
-socketio = SocketIO(app, logger=logger)
-#Session keeps users in the system
 sessions = {
         #username (str): {
             #location: (int, int),
@@ -35,6 +33,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'QIeUZCKK4niYcHSD4cFh8RNhjfMcYO-b'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ccbeovms:QIeUZCKK4niYcHSD4cFh8RNhjfMcYO-b@salt.db.elephantsql.com:5432/ccbeovms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+socketio = SocketIO(app, logger=logger)
+#Session keeps users in the system
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
