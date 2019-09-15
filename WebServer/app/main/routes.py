@@ -1,9 +1,12 @@
-from flask import make_response
+from flask import make_response, render_template
 from app.main import bp
+
 
 
 main_namespace = "/"
 
-bp.route('/database', methods=['GET'])
+@bp.route('/')
 def view_database():
-    return make_response("Hello World")
+    print("What's wrong")
+    return render_template("home.html")
+

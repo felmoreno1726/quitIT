@@ -4,13 +4,12 @@ from json import dumps
 
 from flask import render_template, request, jsonify, make_response, abort
 from flask_socketio import emit, send, join_room
-from app import socketio, logger, sessions, sids
+from app import socketio, logger, sessions, sids, db, user_endpoint
 from app.user_endpoint import bp
 
 from app.models import Alert, User
 
 user_namespace = "/user_endpoint"
-
 
 @socketio.on('alert', namespace=user_namespace)
 def handle_alert_message(message):
@@ -24,8 +23,9 @@ def handle_alert_message(message):
 
     sid = request.sid
     user_context = sessions.get(sid)
-    Alert(time=time, coordinates=user_context["location"])
-
+    alert = Alert(time=time, coordinates=user_context["location"])
+    db.session.add(alert)
+    db.session.commit()
 
 @socketio.on('doctor_help', namespace=user_namespace)
 def handle_doctor_help(message):
@@ -44,9 +44,11 @@ def handle_update_location(message):
     sid = request.sid
     username = sids[sid]
     coordinates = message["coordinates"] # (x, y)
-    sessions["username"]['coordinates'] = coordinates
-    User.query.get_or_404(1)
-
+    sessions[username]['coordinates'] = coordinates
+    #only one user
+    user = User.query.get_or_404(1)
+    user.coordinates = coordinates
+    db.commit()
 socketio.on('join', namespace=user_namespace)
 
 
@@ -61,13 +63,19 @@ def on_join(data):
         # then update with phone number if present
         if phone_number is not None:
             sessions[username]["phone_number"] = phone_number
-
+            user = User.query.get_or_404(1)
+            user.phone_number = phone_number
     else:
         # create entry for user
-        sessions[username] = {"phone_number": phone_number}
+        user = User(username=username)
+        if phone_number is not None:
+            sessions[username] = {"phone_number": phone_number}
+            user.phone_number = phone_number
+        db.session.add(user)
     join_room(username)
     # update sids to point to the username
     sid = request.sid
     sids[sid] = username
     logger.info("Device joined\n sids: " + str(sids))
     logger.info("sessions: " + str(sessions))
+    db.session.commit()

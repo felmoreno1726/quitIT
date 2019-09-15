@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from app.user_endpoint import routes
 
-bp = Blueprint('devices', __name__, url_prefix="/device")
 app = Flask(__name__, static_folder='./static')
 
 db = SQLAlchemy(app)
