@@ -4,3 +4,5 @@ websocket-client
 eventlet
 flask-socketio
 python-socketio
+flask-migrate
+flask-sqlalchemy

@@ -30,7 +30,6 @@ sessions = {
 sids = {
         #sid (val) : username (str)
         }
-register_blueprints(app)
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'QIeUZCKK4niYcHSD4cFh8RNhjfMcYO-b'
@@ -39,3 +38,5 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+### ALWAYS BE THE LAST LINE
+register_blueprints(app)
