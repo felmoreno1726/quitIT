@@ -6,8 +6,11 @@ def register_blueprints(app):
     """
     Calls the different modules of the server to initialize them
     """
+    print("registering blueprints")
     from app.user_endpoint import bp as user_endpoint_bp
+    from app.main import bp as main_bp
     app.register_blueprint(user_endpoint_bp)
+    app.register_blueprint(main_bp)
 
 app = Flask(__name__)
 logger = app.logger

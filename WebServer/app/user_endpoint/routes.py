@@ -32,7 +32,7 @@ def handle_update_location(message):
     then sends an SMS alert to the user's phone.
     """
 
-socketio.on('join', namespace=user_namespace)
+@socketio.on('join', namespace=user_namespace)
 def on_join(data):
     """
     """
