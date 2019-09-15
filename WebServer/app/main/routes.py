@@ -1,9 +1,9 @@
 from flask import make_response
 from app.main import bp
 
+print("Importing main")
 
-main_namespace = "/"
-
-bp.route('/database', methods=['GET'])
+@bp.route('/database', methods=['GET'])
 def view_database():
-    return make_response("Hello World")
+    print("entering db method")
+    return ("Hello World", 200)
