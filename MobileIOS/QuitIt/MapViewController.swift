@@ -2,7 +2,7 @@
 import UIKit
 import MapKit
 import CoreLocation
-
+import SocketIO
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
     
